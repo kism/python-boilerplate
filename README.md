@@ -20,6 +20,9 @@ Project features:
 
 - All project/tool configs in pyproject.toml
 - Virtual environment and dependencies managed by uv
+- Linting with ruff
+- Tests with pytest
+- Type checking with mypy
 
 Boilerplate features:
 
