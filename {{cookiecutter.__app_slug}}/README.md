@@ -2,11 +2,7 @@
 
 ## Prerequisites
 
-Install pipx <https://pipx.pypa.io/stable/>
-
-Install uv with pipx `pipx install uv`
-
-Or install uv and uvx with the installer script <https://docs.astral.sh/uv/getting-started/installation/>
+Install uv and uvx with the installer script <https://docs.astral.sh/uv/getting-started/installation/>
 
 ## Run
 
