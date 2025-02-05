@@ -7,6 +7,8 @@ from typing import cast
 
 from colorama import Fore, init
 
+init(autoreset=True)
+
 COLOURS = {
     "TRACE": Fore.CYAN,
     "DEBUG": Fore.GREEN,

@@ -92,7 +92,7 @@ def test_set_log_level(log_level_in: str | int, log_level_expected: int, logger)
 
 def test_trace_level(logger, caplog):
     """Test trace level."""
-    from {{cookiecutter.__app_package}}.logger import _set_log_level, TRACE_LEVEL_NUM
+    from {{cookiecutter.__app_package}}.logger import TRACE_LEVEL_NUM, _set_log_level
 
     _set_log_level(logger, "TRACE")
 
