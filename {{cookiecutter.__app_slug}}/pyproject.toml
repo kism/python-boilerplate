@@ -12,7 +12,7 @@ dependencies = ["colorama"]
 [dependency-groups]
 dev = ["pyright"]
 
-type = ["mypy"]
+type = ["mypy", "types-colorama"]
 
 lint = ["ruff"]
 
