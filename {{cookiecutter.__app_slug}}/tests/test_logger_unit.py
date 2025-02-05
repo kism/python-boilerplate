@@ -107,9 +107,9 @@ def test_logging_types(logger, caplog):
     """Test trace level."""
 
     with caplog.at_level(logging.INFO):
-        logger.info(('tuple1', 'tuple2'))
-        logger.info(['list1', 'list2'])
-        logger.info({'dict_key': 'dict_value'})
+        logger.info(("tuple1", "tuple2"))
+        logger.info(["list1", "list2"])
+        logger.info({"dict_key": "dict_value"})
         logger.info(1)
 
     assert "(tuple1 tuple2)" in caplog.text
