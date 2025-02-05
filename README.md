@@ -7,11 +7,14 @@
 
 ## Why this boilerplate?
 
-I have made a few simple web apps, this is what I use as a starting point for my future projects.
+This is what I use as a starting point for my non-web projects.
 
 App features:
 
-- Minimal, with my desired python folder structure
+- Minimal
+- My desired python folder structure
+- Example Object defined in it's own file
+- Logger
 
 Project features:
 
@@ -22,7 +25,7 @@ Boilerplate features:
 
 - Template the repo with cookiecutter
 - Comments marked with KISM-BOILERPLATE where there is placeholder code that you will remove/replace.
-- New repo has a README.md file with instructions for running the web app
+- New repo has a README.md file with instructions for running the app
 - This repo has a test workflow to ensure that it works and tests pass after generating.
 
 ## Get started
