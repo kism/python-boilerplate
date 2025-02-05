@@ -16,6 +16,7 @@ COLOURS = {
     "CRITICAL": Fore.RED,
 }
 
+
 class ColourFormatter(logging.Formatter):
     """Custom formatter to add colour to the log messages."""
 
