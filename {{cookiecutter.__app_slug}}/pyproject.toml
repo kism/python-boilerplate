@@ -30,7 +30,7 @@ default-groups = ["dev", "test", "type", "lint"]
 
 [tool.ruff]
 cache-dir = "~/.cache/ruff"
-target-version = "py311"
+target-version = "py312"
 line-length = 120
 
 [tool.ruff.lint]
@@ -42,11 +42,9 @@ select = ["ALL"] # KG Include absolutely all of Ruff's rules.
 ignore = [
     # Modules
     "DJ",  # KG Django not required
-    "PTH", # KG builtin 'open' is fine, not going to use pathlib
     "DTZ", # KG no need to specify timezone for time objects
 
     # Specific rules
-    # "ANN101", # KG Why define self type for object functions...
     "TD002",  # KG Verbose TODO, only I work on this project
     "TD003",  # KG Verbose TODO, only I work on this project
     "ISC001", # KG conflict in the formatter
@@ -63,14 +61,12 @@ ignore = [
 
     # Specific rules
     "S101",    # KG asserts allowed in tests.
-    "ANN201",  # KG Not really needed for pytest.
     "SLF001",  # KG Accessing private members is needed for testing.
     "INP001",  # KG __init__.py not needed for PyTest.
     "PT004",   # KG monkeypatch doesn't return.
     "S311",    # KG I'll assume no real crypto will be done in PyTest.
     "S105",    # KG Hardcoded fake passwords are fine in tests.
     "PLR0913", # KG Tests can have as many arguments as they want.
-    "ANN401",  # KG Tests can return typing.Any.
     "BLE001",  # KG Tests can use BaseException.
 ]
 
@@ -100,11 +96,11 @@ testpaths = ["tests"]
 show_contexts = true
 
 [tool.mypy]
-files = ["{{cookiecutter.__app_package}}", "tests"]
+files = ["{{cookiecutter.__app_package}}"]
 namespace_packages = true
 explicit_package_bases = true
 show_error_codes = true
-strict = false
+strict = true
 enable_error_code = [
     "ignore-without-code",
     "redundant-expr",
