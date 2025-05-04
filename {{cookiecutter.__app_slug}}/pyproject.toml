@@ -107,3 +107,4 @@ enable_error_code = [
     "truthy-bool",
     "type-arg",
 ]
+exclude = ["tests/*"]
