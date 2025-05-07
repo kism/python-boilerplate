@@ -6,5 +6,6 @@
         "ms-python.vscode-pylance",
         "matangover.mypy",
         "charliermarsh.ruff",
+        "tamasfe.even-better-toml"
     ]
 }
