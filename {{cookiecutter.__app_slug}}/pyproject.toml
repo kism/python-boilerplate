@@ -10,12 +10,8 @@ requires-python = "~=3.11"
 dependencies = ["colorama"]
 
 [dependency-groups]
-dev = ["pyright"]
-
 type = ["mypy", "types-colorama"]
-
 lint = ["ruff"]
-
 test = [
     "pytest",
     "pytest-cov",
@@ -26,7 +22,7 @@ test = [
 ]
 
 [tool.uv]
-default-groups = ["dev", "test", "type", "lint"]
+default-groups = ["test", "type", "lint"]
 
 [tool.ruff]
 cache-dir = "~/.cache/ruff"
