@@ -1,16 +1,15 @@
 """Logger unit tests."""
 
-import logging
-from collections.abc import Generator
 from pathlib import Path
+import logging
 
 import pytest
 
-import {{cookiecutter.__app_package}}.logger
+from {{cookiecutter.__app_package}}.logger import TRACE_LEVEL_NUM, _add_file_handler, _set_log_level, setup_logger
 
 
 @pytest.fixture
-def logger() -> Generator:
+def logger():
     """Logger to use in unit tests, including cleanup."""
     logger = logging.getLogger("TEST_LOGGER")
 
@@ -26,8 +25,6 @@ def logger() -> Generator:
 
 def test_logging_permissions_error(logger, tmp_path, mocker):
     """Test logging, mock a permission error."""
-    from {{cookiecutter.__app_package}}.logger import _add_file_handler
-
     mock_open_func = mocker.mock_open(read_data="")
     mock_open_func.side_effect = PermissionError("Permission denied")
 
@@ -40,8 +37,6 @@ def test_logging_permissions_error(logger, tmp_path, mocker):
 
 def test_config_logging_to_dir(logger, tmp_path):
     """TEST: Correct exception is caught when you try log to a folder."""
-    from {{cookiecutter.__app_package}}.logger import _add_file_handler
-
     with pytest.raises(IsADirectoryError):
         _add_file_handler(logger, tmp_path)
 
@@ -52,11 +47,11 @@ def test_handler_console_added(logger):
     log_level = "INFO"
 
     # TEST: Only one handler (console), should exist when no logging path provided
-    {{cookiecutter.__app_package}}.logger.setup_logger(log_level=log_level, log_path=log_path, in_logger=logger)
+    setup_logger(log_level=log_level, log_path=log_path, in_logger=logger)
     assert len(logger.handlers) == 1
 
     # TEST: If a console handler exists, another one shouldn't be created
-    {{cookiecutter.__app_package}}.logger.setup_logger(log_level=log_level, log_path=log_path, in_logger=logger)
+    setup_logger(log_level=log_level, log_path=log_path, in_logger=logger)
     assert len(logger.handlers) == 1
 
 
@@ -66,11 +61,11 @@ def test_handler_file_added(logger, tmp_path):
     log_level = "INFO"
 
     # TEST: Two handlers when logging to file expected
-    {{cookiecutter.__app_package}}.logger.setup_logger(log_level=log_level, log_path=log_path, in_logger=logger)
+    setup_logger(log_level=log_level, log_path=log_path, in_logger=logger)
     assert len(logger.handlers) == 2  # noqa: PLR2004 A console and a file handler are expected
 
     # TEST: Two handlers when logging to file expected, another one shouldn't be created
-    {{cookiecutter.__app_package}}.logger.setup_logger(log_level=log_level, log_path=log_path, in_logger=logger)
+    setup_logger(log_level=log_level, log_path=log_path, in_logger=logger)
     assert len(logger.handlers) == 2  # noqa: PLR2004 A console and a file handler are expected
 
 
@@ -86,8 +81,6 @@ def test_handler_file_added(logger, tmp_path):
 )
 def test_set_log_level(log_level_in: str | int, log_level_expected: int, logger):
     """Test if _set_log_level results in correct log_level."""
-    from {{cookiecutter.__app_package}}.logger import _set_log_level
-
     # TEST: Logger ends up with correct values
     _set_log_level(logger, log_level_in)
     assert logger.getEffectiveLevel() == log_level_expected
@@ -95,8 +88,6 @@ def test_set_log_level(log_level_in: str | int, log_level_expected: int, logger)
 
 def test_trace_level(logger, caplog):
     """Test trace level."""
-    from {{cookiecutter.__app_package}}.logger import TRACE_LEVEL_NUM, _set_log_level
-
     _set_log_level(logger, "TRACE")
 
     assert logger.getEffectiveLevel() == TRACE_LEVEL_NUM
