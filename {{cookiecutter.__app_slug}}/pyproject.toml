@@ -6,12 +6,16 @@ authors = [
     { name = "{{cookiecutter.your_name}}", email = "{{cookiecutter.your_email}}" },
 ]
 readme = "README.md"
-requires-python = "~=3.12"
+requires-python = "~=3.12.0"
 dependencies = ["colorama"]
 
 [dependency-groups]
+dev = ["pyright"]
+
 type = ["mypy", "types-colorama"]
+
 lint = ["ruff"]
+
 test = [
     "pytest",
     "pytest-cov",
@@ -22,7 +26,7 @@ test = [
 ]
 
 [tool.uv]
-default-groups = ["test", "type", "lint"]
+default-groups = ["dev", "test", "type", "lint"]
 
 [tool.ruff]
 cache-dir = "~/.cache/ruff"
@@ -38,6 +42,7 @@ select = ["ALL"] # KG Include absolutely all of Ruff's rules.
 ignore = [
     # Modules
     "DJ",  # KG Django not required
+    "DTZ", # KG no need to specify timezone for time objects
 
     # Specific rules
     "TD002",  # KG Verbose TODO, only I work on this project
