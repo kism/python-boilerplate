@@ -12,8 +12,7 @@ traceback.install(extra_lines=2)
 logger = get_logger(__name__)
 
 
-def main() -> None:
-    """Main Entrypoint."""
+def _get_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(prog=PROGRAM_NAME, description=f"{PROGRAM_NAME} v{__version__}")
     parser.add_argument(
         "--message",
@@ -28,8 +27,12 @@ def main() -> None:
         default=0,
         help="Increase verbosity (can be used multiple times).",
     )
-    args = parser.parse_args()
+    return parser.parse_args()
 
+
+def main() -> None:
+    """Main Entrypoint."""
+    args = _get_args()
     setup_logger_cli(args.v)
     logger.info("my-cool-app version: v%s", __version__)
     my_obj = MyCoolObject(args.message)

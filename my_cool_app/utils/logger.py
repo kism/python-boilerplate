@@ -6,8 +6,12 @@ from logging.handlers import RotatingFileHandler
 from pathlib import Path
 from typing import cast
 
+from rich.console import Console
+from rich.default_styles import DEFAULT_STYLES
 from rich.highlighter import NullHighlighter
 from rich.logging import RichHandler
+from rich.style import Style
+from rich.theme import Theme
 
 LOG_LEVELS = [
     "TRACE",
@@ -17,6 +21,7 @@ LOG_LEVELS = [
     "ERROR",
     "CRITICAL",
 ]  # Valid str logging levels.
+
 
 # This is the logging message format that I like.
 FILE_LOG_FORMAT = "%(levelname)s:%(name)s:%(message)s"
@@ -92,7 +97,9 @@ def get_logger(name: str) -> CustomLogger:
 
 def _add_console_handler(in_logger: logging.Logger) -> None:
     """Add a console handler to the logger."""
-    console_handler = RichHandler(show_time=False, rich_tracebacks=True, highlighter=NullHighlighter())
+    console = Console(theme=Theme({"logging.level.trace": "dim"}))
+
+    console_handler = RichHandler(console=console, show_time=False, rich_tracebacks=True, highlighter=NullHighlighter())
     in_logger.addHandler(console_handler)
 
 
