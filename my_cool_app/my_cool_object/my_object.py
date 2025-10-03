@@ -17,4 +17,5 @@ class MyCoolObject:
 
     def get_message(self) -> str:
         """Return the message."""
+        logger.trace("Getting message")
         return self._my_message

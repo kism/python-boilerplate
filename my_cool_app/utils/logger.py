@@ -7,10 +7,8 @@ from pathlib import Path
 from typing import cast
 
 from rich.console import Console
-from rich.default_styles import DEFAULT_STYLES
 from rich.highlighter import NullHighlighter
 from rich.logging import RichHandler
-from rich.style import Style
 from rich.theme import Theme
 
 LOG_LEVELS = [
@@ -21,7 +19,6 @@ LOG_LEVELS = [
     "ERROR",
     "CRITICAL",
 ]  # Valid str logging levels.
-
 
 # This is the logging message format that I like.
 FILE_LOG_FORMAT = "%(levelname)s:%(name)s:%(message)s"
