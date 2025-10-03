@@ -38,4 +38,4 @@ jobs:
         run: uv tool install .
 
       - name: Run the built project to check it works
-        run: .venv/bin/my-cool-app --help
+        run: my-cool-app --help
