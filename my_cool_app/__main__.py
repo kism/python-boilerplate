@@ -1,9 +1,12 @@
 """Main Entrypoint."""
 
+from rich import traceback
+
 from .my_cool_object import MyCoolObject
 from .utils.logger import get_logger, setup_logger
 from .version import __version__
 
+traceback.install(extra_lines=2)
 logger = get_logger(__name__)
 
 

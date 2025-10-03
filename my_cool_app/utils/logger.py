@@ -6,6 +6,7 @@ from logging.handlers import RotatingFileHandler
 from pathlib import Path
 from typing import cast
 
+from rich.console import Console
 from rich.logging import RichHandler
 
 LOG_LEVELS = [
@@ -76,7 +77,12 @@ def get_logger(name: str) -> CustomLogger:
 
 def _add_console_handler(in_logger: logging.Logger) -> None:
     """Add a console handler to the logger."""
-    console_handler = RichHandler()
+    console = Console(highlight=False, highlighter=None, color_system="auto", theme=None)
+    console_handler = RichHandler(
+        console=console,
+        show_time=False,
+        rich_tracebacks=True,
+    )
     in_logger.addHandler(console_handler)
 
 
@@ -100,7 +106,7 @@ def _set_log_level(in_logger: logging.Logger, log_level: int | str) -> None:
 def _add_file_handler(in_logger: logging.Logger, log_path: Path) -> None:
     """Add a file handler to the logger."""
     try:
-        file_handler = RotatingFileHandler(log_path, maxBytes=1000000, backupCount=5)
+        file_handler = RotatingFileHandler(log_path, maxBytes=1000000, backupCount=3)
     except IsADirectoryError as exc:
         err = "You are trying to log to a directory, try a file"
         raise IsADirectoryError(err) from exc
