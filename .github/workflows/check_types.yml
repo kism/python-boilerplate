@@ -43,4 +43,4 @@ jobs:
         run: uv sync --extra type --extra test
 
       - name: Check types with mypy
-        run: .venv/bin/ty
+        run: .venv/bin/ty check .
