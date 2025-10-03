@@ -116,9 +116,9 @@ def test_trace_level(logger: CustomLogger, caplog: pytest.LogCaptureFixture) -> 
 @pytest.mark.parametrize(
     ("verbosity", "expected_level"),
     [
-        (0, logging.INFO), # <no -v>
-        (1, logging.DEBUG), # -v
-        (2, TRACE_LEVEL_NUM), # -vv
+        (0, logging.INFO),  # <no -v>
+        (1, logging.DEBUG),  # -v
+        (2, TRACE_LEVEL_NUM),  # -vv
     ],
 )
 def test_logger_setup_cli(
