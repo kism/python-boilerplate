@@ -1,5 +1,9 @@
 """Demo object."""
 
+from my_cool_app.utils.logger import get_logger
+
+logger = get_logger(__name__)
+
 
 # KISM-BOILERPLATE: Demo object, doesn't do much
 class MyCoolObject:
@@ -8,6 +12,7 @@ class MyCoolObject:
     def __init__(self, message: str) -> None:
         """Init config for the NGINX Allowlist Writer."""
         # Monitor Writing
+        logger.debug("Creating MyCoolObject")
         self._my_message = message
 
     def get_message(self) -> str:

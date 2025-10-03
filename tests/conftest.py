@@ -5,10 +5,10 @@ Fixtures defined in a conftest.py can be used by any test in that package withou
 
 import pytest
 
-from {{cookiecutter.__app_package}}.my_object import MyCoolObject
+from my_cool_app.my_cool_object import MyCoolObject
 
 
 @pytest.fixture
-def my_cool_object():
+def my_cool_object() -> MyCoolObject:
     """Fixture for MyCoolObject."""
     return MyCoolObject("Hello, World!")

@@ -1,18 +1,14 @@
 [project]
-name = "{{cookiecutter.__app_package}}"
+name = "my-cool-app"
 version = "0.0.1"
 description = ""
-authors = [
-    { name = "{{cookiecutter.your_name}}", email = "{{cookiecutter.your_email}}" },
-]
+authors = []
 readme = "README.md"
 requires-python = "~=3.12.0"
-dependencies = ["colorama"]
+dependencies = ["rich>=14.1.0"]
 
-[dependency-groups]
-dev = ["pyright"]
-
-type = ["mypy", "types-colorama"]
+[project.optional-dependencies]
+type = ["mypy", "ty"]
 
 lint = ["ruff"]
 
@@ -24,9 +20,6 @@ test = [
     "detect-test-pollution",
     "tomlkit",
 ]
-
-[tool.uv]
-default-groups = ["dev", "test", "type", "lint"]
 
 [tool.ruff]
 cache-dir = "~/.cache/ruff"
@@ -86,7 +79,7 @@ docstring-code-line-length = 40
 [tool.pytest.ini_options]
 addopts = [
     "--cov-context=test",
-    "--cov={{cookiecutter.__app_package}}",
+    "--cov=my_cool_app",
     "--cov-report=term",
     "--cov-report=html",
 ]
@@ -96,9 +89,7 @@ testpaths = ["tests"]
 show_contexts = true
 
 [tool.mypy]
-files = ["{{cookiecutter.__app_package}}"]
-namespace_packages = true
-explicit_package_bases = true
+files = ["my_cool_app", "tests"]
 show_error_codes = true
 strict = true
 enable_error_code = [
@@ -106,5 +97,10 @@ enable_error_code = [
     "redundant-expr",
     "truthy-bool",
     "type-arg",
+    "unused-awaitable",
+    "possibly-undefined",
+    "redundant-self",
 ]
-exclude = ["tests/*"]
+warn_unreachable = true
+warn_redundant_casts = true
+warn_no_return = true

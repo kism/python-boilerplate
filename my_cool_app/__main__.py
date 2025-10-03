@@ -1,17 +1,17 @@
 """Main Entrypoint."""
 
-from . import __version__
-from .logger import get_logger
-from .my_object import MyCoolObject
+from .my_cool_object import MyCoolObject
+from .utils.logger import get_logger, setup_logger
+from .version import __version__
 
 logger = get_logger(__name__)
 
 
 def main() -> None:
     """Main Entrypoint."""
-    logger.info("{{cookiecutter.__app_package}} version: %s", __version__)
+    setup_logger(log_level="TRACE")
+    logger.info("my-cool-app version: v%s", __version__)
     my_obj = MyCoolObject("Hello, World!")
-
     logger.info(my_obj.get_message())
 
 

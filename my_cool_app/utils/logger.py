@@ -6,44 +6,7 @@ from logging.handlers import RotatingFileHandler
 from pathlib import Path
 from typing import cast
 
-from colorama import Fore, init
-
-init(autoreset=True)
-
-COLOURS = {
-    "TRACE": Fore.CYAN,
-    "DEBUG": Fore.GREEN,
-    "INFO": Fore.WHITE,
-    "WARNING": Fore.YELLOW,
-    "ERROR": Fore.RED,
-    "CRITICAL": Fore.RED,
-}
-
-
-class ColourFormatter(logging.Formatter):
-    """Custom formatter to add colour to the log messages."""
-
-    def _format_value(self, value: typing.Any) -> str:  # noqa: ANN401
-        if isinstance(value, tuple):
-            return "(" + " ".join(map(str, value)) + ")"
-        if isinstance(value, list):
-            return "[" + " ".join(map(str, value)) + "]"
-        return str(value) if value is not None else "<NoneType>"
-
-    def format(self, record: logging.LogRecord) -> str:
-        """Format the log record."""
-        record.msg = self._format_value(record.msg)
-
-        if record.levelno == logging.INFO:
-            return f"{record.getMessage()}"
-
-        if colour := COLOURS.get(record.levelname):
-            record.name = f"{colour}{record.name}"
-            record.levelname = f"{colour}{record.levelname}"
-            record.msg = f"{colour}{record.msg}"
-
-        return super().format(record)
-
+from rich.logging import RichHandler
 
 LOG_LEVELS = [
     "TRACE",
@@ -94,13 +57,13 @@ def setup_logger(
         in_logger = logging.getLogger()  # Get the root logger
 
     # If the logger doesn't have a console handler (root logger doesn't by default)
-    if not _has_console_handler(in_logger):
+    if not any(isinstance(handler, (RichHandler, logging.StreamHandler)) for handler in in_logger.handlers):
         _add_console_handler(in_logger)
 
     _set_log_level(in_logger, log_level)
 
     # If we are logging to a file
-    if not _has_file_handler(in_logger) and log_path:
+    if not any(isinstance(handler, logging.FileHandler) for handler in in_logger.handlers) and log_path:
         _add_file_handler(in_logger, log_path)
 
     logger.info("Logger configuration set!")
@@ -111,22 +74,9 @@ def get_logger(name: str) -> CustomLogger:
     return cast("CustomLogger", logging.getLogger(name))
 
 
-def _has_file_handler(in_logger: logging.Logger) -> bool:
-    """Check if logger has a file handler."""
-    return any(isinstance(handler, logging.FileHandler) for handler in in_logger.handlers)
-
-
-def _has_console_handler(in_logger: logging.Logger) -> bool:
-    """Check if logger has a console handler."""
-    return any(isinstance(handler, logging.StreamHandler) for handler in in_logger.handlers)
-
-
 def _add_console_handler(in_logger: logging.Logger) -> None:
     """Add a console handler to the logger."""
-    formatter = ColourFormatter(LOG_FORMAT)
-    console_handler = logging.StreamHandler()
-    console_handler.setFormatter(formatter)
-
+    console_handler = RichHandler()
     in_logger.addHandler(console_handler)
 
 
@@ -142,9 +92,7 @@ def _set_log_level(in_logger: logging.Logger, log_level: int | str) -> None:
             )
         else:
             in_logger.setLevel(log_level)
-            logger.trace("Set log level: %s", log_level)
             logger.debug("Set log level: %s", log_level)
-            logger.info("Set log level: %s", log_level)
     else:
         in_logger.setLevel(log_level)
 

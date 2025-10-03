@@ -1,40 +1,65 @@
-# KiSM's Python Boilerplate
+# my_cool_app
 
-[![Check](https://github.com/kism/python-boilerplate/actions/workflows/check.yml/badge.svg)](https://github.com/kism/python-boilerplate/actions/workflows/check.yml)
-[![Type](https://github.com/kism/python-boilerplate/actions/workflows/check_types.yml/badge.svg)](https://github.com/kism/python-boilerplate/actions/workflows/check_types.yml)
-[![Test](https://github.com/kism/python-boilerplate/actions/workflows/test.yml/badge.svg)](https://github.com/kism/python-boilerplate/actions/workflows/test.yml)
-[![codecov](https://codecov.io/github/kism/python-boilerplate/graph/badge.svg?token=NARIB5JF9M)](https://codecov.io/github/kism/python-boilerplate)
+## Prerequisites
 
-## Why this boilerplate?
+Install uv and uvx with the installer script <https://docs.astral.sh/uv/getting-started/installation/>
 
-This is what I use as a starting point for my non-web projects.
+## Run
 
-App features:
-
-- Minimal
-- My desired python folder structure
-- Example Object defined in it's own file
-- Logger
-
-Project features:
-
-- All project/tool configs in pyproject.toml
-- Virtual environment and dependencies managed by uv
-- Linting with ruff
-- Tests with pytest
-- Type checking with mypy
-
-Boilerplate features:
-
-- Template the repo with cookiecutter
-- Comments marked with KISM-BOILERPLATE where there is placeholder code that you will remove/replace.
-- New repo has a README.md file with instructions for running the app
-- This repo has a test workflow to ensure that it works and tests pass after generating.
-
-## Get started
+### Setup
 
 ```bash
-pipx run cookiecutter gh:kism/python-boilerplate
+uv venv
+source .venv/bin/activate
+uv sync --all-extras # Omit --all-extras for prod
 ```
 
-After some prompts, this will create the new project directory in the current directory, with the name you specified.
+### Running the app
+
+```bash
+python -m my_cool_app
+```
+
+## Check/Test
+
+### Checking
+
+Run `ruff check .` or get the vscode ruff extension, the rules are defined in pyproject.toml.
+
+### Type Checking
+
+Run `mypy .` or get the vscode mypy extension not by Microsoft, the rules are defined in pyproject.toml.
+
+### Testing
+
+Run `pytest`, It will get its config from pyproject.toml
+
+Of course when you start writing your app many of the tests will break. With the comments it serves as a somewhat tutorial on using `pytest`, that being said I am not an expert.
+
+### Workflows
+
+The '.github' folder has both a Check and Test workflow.
+
+To get the workflow passing badges on your repo, have a look at <https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/adding-a-workflow-status-badge>
+
+Or if you are not using GitHub you can check out workflow badges from your Git hosting service, or use <https://shields.io/> which pretty much covers everything.
+
+### Test Coverage
+
+#### Locally
+
+To get code coverage locally, the config is set in 'pyproject.toml', or run with `pytest`
+
+```bash
+python -m http.server -b 127.0.0.1 8000 -d htmlcov
+```
+
+Open the link in your browser and browse into the 'htmlcov' directory.
+
+#### Codecov
+
+The template repo uses codecov to get a badge on the README.md, look at their guides on config that up since it's stripped out of this repo.
+
+## Config
+
+Defaults are defined in config.py, and config loading and validation are handled in there too.
