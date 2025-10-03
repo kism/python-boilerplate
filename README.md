@@ -29,11 +29,11 @@ python -m my_cool_app
 
 ### Checking
 
-Run `ruff check .` or get the vscode ruff extension, the rules are defined in pyproject.toml.
+Run `ruff check` or get the vscode ruff extension, the rules are defined in pyproject.toml.
 
 ### Type Checking
 
-Run `mypy .` or get the vscode mypy extension not by Microsoft, the rules are defined in pyproject.toml.
+Run `mypy` or get the vscode mypy extension not by Microsoft, the rules are defined in pyproject.toml.
 
 ### Testing
 
