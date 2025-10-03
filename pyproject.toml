@@ -29,7 +29,7 @@ build-backend = "uv_build"
 module-root = ""
 
 [project.scripts]
-spoofy-archiver = "my_cool_app:__main__.main"
+my-cool-app = "my_cool_app:__main__.main"
 
 [tool.ruff]
 cache-dir = "~/.cache/ruff"

@@ -1,7 +1,6 @@
 """Main Entrypoint."""
 
 import argparse
-import logging
 
 from rich import traceback
 
