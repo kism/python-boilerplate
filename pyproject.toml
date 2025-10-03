@@ -21,16 +21,22 @@ test = [
     "tomlkit",
 ]
 
+[build-system]
+requires = ["uv_build>=0.8.4,<0.9.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-root = ""
+
+[project.scripts]
+spoofy-archiver = "my_cool_app:__main__.main"
+
 [tool.ruff]
 cache-dir = "~/.cache/ruff"
 target-version = "py312"
 line-length = 120
 
 [tool.ruff.lint]
-extend-fixable = ["B", "I001"] # KG I think this means something...
-extend-unsafe-fixes = [
-    "F401",
-] # KG I don't like that this is fixed automatically (this doesnt work?)
 select = ["ALL"] # KG Include absolutely all of Ruff's rules.
 ignore = [
     # Modules
