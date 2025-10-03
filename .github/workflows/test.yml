@@ -8,6 +8,8 @@ on:
       - test
     paths-ignore:
       - "**/README*"
+      - ".github/workflows/check.yml"
+      - ".github/workflows/check_types.yml"
 
 jobs:
   test_boilerplate:
