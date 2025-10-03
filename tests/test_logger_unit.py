@@ -7,7 +7,14 @@ from typing import TYPE_CHECKING
 
 import pytest
 
-from my_cool_app.utils.logger import TRACE_LEVEL_NUM, CustomLogger, _add_file_handler, _set_log_level, setup_logger
+from my_cool_app.utils.logger import (
+    TRACE_LEVEL_NUM,
+    CustomLogger,
+    _add_file_handler,
+    _set_log_level,
+    setup_logger,
+    setup_logger_cli,
+)
 
 if TYPE_CHECKING:
     from pytest_mock import MockerFixture
@@ -91,14 +98,11 @@ def test_set_log_level(
     log_level_expected: int,
     logger: CustomLogger,
 ) -> None:
-    """Test if _set_log_level results in correct log_level."""
-    # TEST: Logger ends up with correct values
     _set_log_level(logger, log_level_in)
     assert logger.getEffectiveLevel() == log_level_expected
 
 
 def test_trace_level(logger: CustomLogger, caplog: pytest.LogCaptureFixture) -> None:
-    """Test trace level."""
     _set_log_level(logger, "TRACE")
 
     assert logger.getEffectiveLevel() == TRACE_LEVEL_NUM
@@ -107,3 +111,21 @@ def test_trace_level(logger: CustomLogger, caplog: pytest.LogCaptureFixture) -> 
         logger.trace("Test trace")
 
     assert "Test trace" in caplog.text
+
+
+@pytest.mark.parametrize(
+    ("verbosity", "expected_level"),
+    [
+        (0, logging.INFO), # <no -v>
+        (1, logging.DEBUG), # -v
+        (2, TRACE_LEVEL_NUM), # -vv
+    ],
+)
+def test_logger_setup_cli(
+    logger: CustomLogger,
+    caplog: pytest.LogCaptureFixture,
+    verbosity: int,
+    expected_level: int,
+) -> None:
+    setup_logger_cli(verbosity=verbosity, in_logger=logger)
+    assert logger.getEffectiveLevel() == expected_level

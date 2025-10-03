@@ -6,7 +6,7 @@ from logging.handlers import RotatingFileHandler
 from pathlib import Path
 from typing import cast
 
-from rich.console import Console
+from rich.highlighter import NullHighlighter
 from rich.logging import RichHandler
 
 LOG_LEVELS = [
@@ -19,7 +19,7 @@ LOG_LEVELS = [
 ]  # Valid str logging levels.
 
 # This is the logging message format that I like.
-LOG_FORMAT = "%(levelname)s:%(name)s:%(message)s"
+FILE_LOG_FORMAT = "%(levelname)s:%(name)s:%(message)s"
 TRACE_LEVEL_NUM = 5
 
 
@@ -39,6 +39,21 @@ logging.setLoggerClass(CustomLogger)
 # This is where we log to in this module, following the standard of every module.
 # I don't use the function so we can have this at the top
 logger = cast("CustomLogger", logging.getLogger(__name__))
+
+
+def setup_logger_cli(
+    verbosity: int,
+    in_logger: logging.Logger | None = None,
+) -> None:
+    """Setup the logger from verbosity count from CLI."""
+    if verbosity >= 2:  # noqa: PLR2004 Magic number makes sense
+        log_level = TRACE_LEVEL_NUM
+    elif verbosity == 1:
+        log_level = logging.DEBUG
+    else:
+        log_level = logging.INFO
+
+    setup_logger(log_level=log_level, in_logger=in_logger)
 
 
 # Pass in the whole app object to make it obvious we are configuring the logger object within the app object.
@@ -77,12 +92,7 @@ def get_logger(name: str) -> CustomLogger:
 
 def _add_console_handler(in_logger: logging.Logger) -> None:
     """Add a console handler to the logger."""
-    console = Console(highlight=False, highlighter=None, color_system="auto", theme=None)
-    console_handler = RichHandler(
-        console=console,
-        show_time=False,
-        rich_tracebacks=True,
-    )
+    console_handler = RichHandler(show_time=False, rich_tracebacks=True, highlighter=NullHighlighter())
     in_logger.addHandler(console_handler)
 
 
@@ -114,7 +124,7 @@ def _add_file_handler(in_logger: logging.Logger, log_path: Path) -> None:
         err = "The user running this does not have access to the file: " + str(log_path.resolve())
         raise PermissionError(err) from exc
 
-    formatter = logging.Formatter(LOG_FORMAT)
+    formatter = logging.Formatter(FILE_LOG_FORMAT)
     file_handler.setFormatter(formatter)
     in_logger.addHandler(file_handler)
     logger.info("Logging to file: %s", log_path)
