@@ -66,6 +66,8 @@ ignore = [
     "S105",    # KG Hardcoded fake passwords are fine in tests.
     "PLR0913", # KG Tests can have as many arguments as they want.
     "BLE001",  # KG Tests can use BaseException.
+    "S311",    # KG Regular RNG is fine in tests.
+
 ]
 
 
