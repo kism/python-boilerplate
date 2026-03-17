@@ -5,23 +5,23 @@ description = ""
 authors = []
 readme = "README.md"
 requires-python = ">=3.12.0,<4"
-dependencies = ["rich>=14.1.0"]
+dependencies = ["rich>=14.3.0"]
 
 [project.optional-dependencies]
-type = ["mypy", "ty"]
+type = ["mypy>=1.19.0", "ty>=0.0.23"]
 
-lint = ["ruff"]
+lint = ["ruff>=0.15.6"]
 
 test = [
-    "pytest",
-    "pytest-cov",
+    "pytest>=9.0.0",
+    "coverage>=7.13.0",
     "pytest-mock",
     "pytest-random-order",
     "detect-test-pollution",
 ]
 
 [build-system]
-requires = ["uv_build>=0.9.28,<0.10.0"]
+requires = ["uv_build>=0.10.0,<0.11.0"]
 build-backend = "uv_build"
 
 [tool.uv.build-backend]
@@ -39,14 +39,17 @@ line-length = 120
 select = ["ALL"] # KG Include absolutely all of Ruff's rules.
 ignore = [
     # Modules
-    "DJ",  # KG Django not required
-    "DTZ", # KG no need to specify timezone for time objects
+    "DJ",   # KG Django not required
+    "AIR",  # KG Airflow not required
+    "FAST", # KG FastAPI not required
+    "DTZ",  # KG no need to specify timezone for time objects
 
     # Specific rules
     "TD002",  # KG Verbose TODO, only I work on this project
     "TD003",  # KG Verbose TODO, only I work on this project
     "ISC001", # KG conflict in the formatter
     "COM812", # KG conflict in the formatter
+    "D",      # KG Don't care about docstrings
 ]
 
 [tool.ruff.lint.per-file-ignores]
@@ -67,7 +70,6 @@ ignore = [
     "PLR0913", # KG Tests can have as many arguments as they want.
     "BLE001",  # KG Tests can use BaseException.
     "S311",    # KG Regular RNG is fine in tests.
-
 ]
 
 
@@ -84,13 +86,17 @@ docstring-code-format = true
 docstring-code-line-length = 40
 
 [tool.pytest.ini_options]
-addopts = [
-    "--cov-context=test",
-    "--cov=my_cool_app",
-    "--cov-report=term",
-    "--cov-report=html",
-]
 testpaths = ["tests"]
+
+[tool.coverage.run]
+command_line = ".venv/bin/pytest"
+source = ["my_cool_app"]
+context = "test"
+
+[tool.coverage.report]
+show_missing = false
+format = "text"
+sort = "-Miss"
 
 [tool.coverage.html]
 show_contexts = true
