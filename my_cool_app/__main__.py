@@ -34,7 +34,7 @@ def main() -> None:
     """Main Entrypoint."""
     args = _get_args()
     setup_logger_cli(args.v)
-    logger.info("my-cool-app version: v%s", __version__)
+    logger.info("%s version: v%s", PROGRAM_NAME, __version__)
     my_obj = MyCoolObject(args.message)
     logger.trace("About to print message")
     logger.info("Message: %s", my_obj.get_message())
