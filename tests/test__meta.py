@@ -11,7 +11,7 @@ def test_version_pyproject() -> None:
     pyproject_path = Path("pyproject.toml")
     with pyproject_path.open("rb") as f:
         pyproject_toml = tomllib.load(f)
-    assert pyproject_toml.get("project", {}).get("version", None) == my_cool_app.__version__
+    assert pyproject_toml.get("project", {}).get("version", None) == my_cool_app.PROGRAM_VERSION
 
 
 def test_version_lock() -> None:
@@ -23,7 +23,7 @@ def test_version_lock() -> None:
     found_version = False
     for package in uv_lock.get("package", []):
         if package.get("name") == "my-cool-app":
-            assert package.get("version") == my_cool_app.__version__
+            assert package.get("version") == my_cool_app.PROGRAM_VERSION
             found_version = True
             break
 

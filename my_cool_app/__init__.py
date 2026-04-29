@@ -1,5 +1,8 @@
 """Python App my-cool-app."""
 
-from .version import __version__
+from .constants import PROGRAM_NAME, PROGRAM_VERSION
 
-__all__ = ["__version__"]
+__all__ = [
+    "PROGRAM_NAME",
+    "PROGRAM_VERSION",
+]
