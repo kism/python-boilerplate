@@ -1,17 +1,17 @@
 """Version tracking within the package."""
+
 from datetime import datetime
 from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 
 OUR_TIMEZONE = datetime.now().astimezone().tzinfo  # Normal things to do in Python
 PROGRAM_START_TIME = datetime.now(tz=OUR_TIMEZONE).strftime("%Y-%m-%d %H:%M:%S %Z")
-PROGRAM_NAME = Path(__file__).parent.name.replace("_", "-").lower() # Calculate this
+PROGRAM_NAME = Path(__file__).parent.name.replace("_", "-").lower()  # Calculate this
 PROGRAM_REPO_URL = "https://github.com/kism/python-boilerplate"
 try:
     PROGRAM_VERSION = version(PROGRAM_NAME)
 except PackageNotFoundError:
     PROGRAM_VERSION = "<unknown, please run uv sync>"
-
 
 
 def get_version_str() -> str:
