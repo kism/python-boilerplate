@@ -3,7 +3,7 @@
 import tomllib
 from pathlib import Path
 
-import my_cool_app
+from my_cool_app import PROGRAM_NAME, PROGRAM_VERSION
 
 
 def test_version_pyproject() -> None:
@@ -11,7 +11,7 @@ def test_version_pyproject() -> None:
     pyproject_path = Path("pyproject.toml")
     with pyproject_path.open("rb") as f:
         pyproject_toml = tomllib.load(f)
-    assert pyproject_toml.get("project", {}).get("version", None) == my_cool_app.PROGRAM_VERSION
+    assert pyproject_toml.get("project", {}).get("version", None) == PROGRAM_VERSION
 
 
 def test_version_lock() -> None:
@@ -22,9 +22,9 @@ def test_version_lock() -> None:
 
     found_version = False
     for package in uv_lock.get("package", []):
-        if package.get("name") == "my-cool-app":
-            assert package.get("version") == my_cool_app.PROGRAM_VERSION
+        if package.get("name") == PROGRAM_NAME:
+            assert package.get("version") == PROGRAM_VERSION
             found_version = True
             break
 
-    assert found_version, "my-cool-app not found in uv.lock"
+    assert found_version, f"{PROGRAM_NAME} not found in uv.lock"
