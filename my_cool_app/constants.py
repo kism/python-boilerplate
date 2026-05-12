@@ -10,7 +10,7 @@ PROGRAM_NAME = Path(__file__).parent.name.replace("_", "-").lower()  # Calculate
 PROGRAM_REPO_URL = "https://github.com/kism/python-boilerplate"
 try:
     PROGRAM_VERSION = version(PROGRAM_NAME)
-except PackageNotFoundError:
+except PackageNotFoundError:  # pragma: no cover
     PROGRAM_VERSION = "<unknown, please run uv sync>"
 
 

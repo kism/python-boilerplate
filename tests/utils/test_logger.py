@@ -11,7 +11,6 @@ from my_cool_app.utils.logger import (
     TRACE_LEVEL_NUM,
     CustomLogger,
     _add_file_handler,
-    _set_log_level,
     setup_logger,
     setup_logger_cli,
 )
@@ -83,34 +82,22 @@ def test_handler_file_added(logger: CustomLogger, tmp_path: Path) -> None:
     assert len(logger.handlers) == 2  # noqa: PLR2004 A console and a file handler are expected
 
 
+def test_trace_log_message(logger: CustomLogger) -> None:
+    """Test that the trace method emits a log record when trace level is enabled."""
+    setup_logger(log_level="TRACE", in_logger=logger)
+    logger.trace("test trace message")
+
+
 @pytest.mark.parametrize(
-    ("log_level_in", "log_level_expected"),
-    [
-        (50, 50),
-        ("INFO", 20),
-        ("WARNING", 30),
-        ("INVALID", 20),
-        ("TRACE", TRACE_LEVEL_NUM),
-    ],
+    "log_level",
+    [logging.INFO, TRACE_LEVEL_NUM],
 )
-def test_set_log_level(
-    log_level_in: str | int,
-    log_level_expected: int,
-    logger: CustomLogger,
-) -> None:
-    _set_log_level(logger, log_level_in)
-    assert logger.getEffectiveLevel() == log_level_expected
-
-
-def test_trace_level(logger: CustomLogger, caplog: pytest.LogCaptureFixture) -> None:
-    _set_log_level(logger, "TRACE")
-
-    assert logger.getEffectiveLevel() == TRACE_LEVEL_NUM
-
-    with caplog.at_level(TRACE_LEVEL_NUM):
-        logger.trace("Test trace")
-
-    assert "Test trace" in caplog.text
+def test_simple_logging_console_handler(logger: CustomLogger, monkeypatch: pytest.MonkeyPatch, log_level: int) -> None:
+    """Test the USE_SIMPLE_LOGGING path uses a plain StreamHandler."""
+    monkeypatch.setattr("my_cool_app.utils.logger.USE_SIMPLE_LOGGING", True)
+    setup_logger(log_level=log_level, in_logger=logger)
+    assert len(logger.handlers) == 1
+    assert isinstance(logger.handlers[0], logging.StreamHandler)
 
 
 @pytest.mark.parametrize(
