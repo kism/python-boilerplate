@@ -82,6 +82,24 @@ def test_handler_file_added(logger: CustomLogger, tmp_path: Path) -> None:
     assert len(logger.handlers) == 2  # noqa: PLR2004 A console and a file handler are expected
 
 
+def test_trace_log_message(logger: CustomLogger) -> None:
+    """Test that the trace method emits a log record when trace level is enabled."""
+    setup_logger(log_level="TRACE", in_logger=logger)
+    logger.trace("test trace message")
+
+
+@pytest.mark.parametrize(
+    "log_level",
+    [logging.INFO, TRACE_LEVEL_NUM],
+)
+def test_simple_logging_console_handler(logger: CustomLogger, monkeypatch: pytest.MonkeyPatch, log_level: int) -> None:
+    """Test the USE_SIMPLE_LOGGING path uses a plain StreamHandler."""
+    monkeypatch.setattr("my_cool_app.utils.logger.USE_SIMPLE_LOGGING", True)
+    setup_logger(log_level=log_level, in_logger=logger)
+    assert len(logger.handlers) == 1
+    assert isinstance(logger.handlers[0], logging.StreamHandler)
+
+
 @pytest.mark.parametrize(
     ("verbosity", "expected_level"),
     [
