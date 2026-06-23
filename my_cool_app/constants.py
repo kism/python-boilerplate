@@ -14,7 +14,7 @@ except PackageNotFoundError:  # pragma: no cover
     PROGRAM_VERSION = "<unknown, please run uv sync>"
 
 
-def get_version_str() -> str:
+def _get_version_str() -> str:
     """Get a string representation of the version, including branch and commit hash."""
     _repo_root = Path(__file__).parent.parent
     git_head_log = _repo_root / ".git" / "logs" / "HEAD"
@@ -41,4 +41,4 @@ def get_version_str() -> str:
 
 
 PROGRAM_NAME_WITH_VERSION = f"{PROGRAM_NAME} v{PROGRAM_VERSION}"
-PROGRAM_NAME_WITH_FULL_VERSION = get_version_str()
+PROGRAM_NAME_WITH_FULL_VERSION = _get_version_str()
