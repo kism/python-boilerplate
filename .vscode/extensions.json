@@ -4,8 +4,8 @@
         "samuelcolvin.jinjahtml",
         "ms-python.python",
         "ms-python.vscode-pylance",
-        "matangover.mypy",
+        "tamasfe.even-better-toml",
         "charliermarsh.ruff",
-        "tamasfe.even-better-toml"
+        "astral-sh.ty"
     ]
 }

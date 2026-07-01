@@ -31,7 +31,7 @@ USE_SIMPLE_LOGGING: bool = os.getenv("SIMPLE_LOGGING", "0").lower() in ("1", "tr
 
 
 class CustomLogger(logging.Logger):
-    """Custom logger to appease mypy."""
+    """Custom logger to appease ty."""
 
     def trace(self, message: typing.Any, *args: typing.Any, **kws: typing.Any) -> None:  # noqa: ANN401 Typing.any required for logging
         """Create logger level for trace."""

@@ -33,7 +33,7 @@ Run `ruff check` or get the vscode ruff extension, the rules are defined in pypr
 
 ### Type Checking
 
-Run `mypy` or get the vscode mypy extension not by Microsoft, the rules are defined in pyproject.toml.
+Run `ty`
 
 ### Testing
 
