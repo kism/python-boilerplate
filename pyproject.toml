@@ -5,16 +5,16 @@ description = ""
 authors = []
 readme = "README.md"
 requires-python = ">=3.12.0,<4"
-dependencies = ["rich>=14.3.0"]
+dependencies = ["rich>=15.0.0"]
 
 [project.optional-dependencies]
-type = ["mypy>=1.19.0", "ty>=0.0.23"]
+type = ["ty>=0.0.35"]
 
-lint = ["ruff>=0.15.6"]
+lint = ["ruff>=0.15.20"]
 
 test = [
-    "pytest>=9.0.0",
-    "coverage>=7.13.0",
+    "pytest>=9.1.1",
+    "coverage>=7.14.3",
     "pytest-mock",
     "pytest-random-order",
     "detect-test-pollution",
@@ -103,20 +103,3 @@ sort = "-Miss"
 
 [tool.coverage.html]
 show_contexts = true
-
-[tool.mypy]
-files = ["my_cool_app", "tests"]
-show_error_codes = true
-strict = true
-enable_error_code = [
-    "ignore-without-code",
-    "redundant-expr",
-    "truthy-bool",
-    "type-arg",
-    "unused-awaitable",
-    "possibly-undefined",
-    "redundant-self",
-]
-warn_unreachable = true
-warn_redundant_casts = true
-warn_no_return = true
