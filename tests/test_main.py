@@ -1,9 +1,13 @@
 import argparse
 import logging
-
-import pytest
+from typing import TYPE_CHECKING
 
 from my_cool_app import __main__
+
+if TYPE_CHECKING:
+    import pytest
+else:
+    pytest = object
 
 
 def test_main(

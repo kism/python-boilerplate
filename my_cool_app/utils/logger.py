@@ -4,13 +4,17 @@ import logging
 import os
 import typing
 from logging.handlers import RotatingFileHandler
-from pathlib import Path
-from typing import cast
+from typing import TYPE_CHECKING, cast
 
 from rich.console import Console
 from rich.highlighter import NullHighlighter
 from rich.logging import RichHandler
 from rich.theme import Theme
+
+if TYPE_CHECKING:
+    from pathlib import Path
+else:
+    Path = object
 
 LOG_LEVELS = [
     "TRACE",
