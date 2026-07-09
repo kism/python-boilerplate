@@ -35,7 +35,7 @@ def _get_version_str() -> str:
     return (
         f"{PROGRAM_NAME} "
         f"v{PROGRAM_VERSION}"
-        f"{('-' + current_branch) if current_branch else ''}"
+        f"{('-' + current_branch) if current_branch and (last_commit not in current_branch) else ''}"
         f"{('/' + last_commit + '') if last_commit else ''}"
     )
 
