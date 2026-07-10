@@ -1,5 +1,22 @@
 # my_cool_app
 
+## Using this template
+
+Rename the app and repo references (replace `your_app` and `youruser/your-repo`):
+
+```bash
+NEW_MODULE=your_app                 # python module name, snake_case
+NEW_DIST=your-app                   # package/dist name, kebab-case
+NEW_REPO=youruser/your-repo         # github <user>/<repo>
+
+git grep -lz -e my_cool_app -e my-cool-app -e kism/python-boilerplate | \
+  xargs -0 sed -i "s|my_cool_app|$NEW_MODULE|g; s|my-cool-app|$NEW_DIST|g; s|kism/python-boilerplate|$NEW_REPO|g"
+git mv my_cool_app "$NEW_MODULE"
+rm -rf .venv *.egg-info && uv sync --all-extras
+```
+
+Then delete this section.
+
 [![Check](https://github.com/kism/python-boilerplate/actions/workflows/check.yml/badge.svg)](https://github.com/kism/python-boilerplate/actions/workflows/check.yml)
 [![CheckType](https://github.com/kism/python-boilerplate/actions/workflows/check_types.yml/badge.svg)](https://github.com/kism/python-boilerplate/actions/workflows/check_types.yml)
 [![Test](https://github.com/kism/python-boilerplate/actions/workflows/test.yml/badge.svg)](https://github.com/kism/python-boilerplate/actions/workflows/test.yml)
