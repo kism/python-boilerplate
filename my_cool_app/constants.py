@@ -16,9 +16,9 @@ except PackageNotFoundError:  # pragma: no cover
 
 def _get_version_str() -> str:
     """Get a string representation of the version, including branch and commit hash."""
-    _repo_root = Path(__file__).parent.parent
-    git_head_log = _repo_root / ".git" / "logs" / "HEAD"
-    git_head = _repo_root / ".git" / "HEAD"
+    repo_root = Path(__file__).parent.parent
+    git_head_log = repo_root / ".git" / "logs" / "HEAD"
+    git_head = repo_root / ".git" / "HEAD"
     last_commit = ""
     current_branch = ""
 

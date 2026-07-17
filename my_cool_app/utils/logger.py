@@ -31,13 +31,13 @@ SIMPLE_LOG_FORMAT_DEBUG = "%(levelname)s:%(name)s:%(message)s"
 FILE_LOG_FORMAT = "%(levelname)s:%(name)s:%(message)s"
 TRACE_LEVEL_NUM = 5
 
-USE_SIMPLE_LOGGING: bool = os.getenv("SIMPLE_LOGGING", "0").lower() in ("1", "true", "yes")
+USE_SIMPLE_LOGGING: bool = os.getenv("SIMPLE_LOGGING", "0").lower() in {"1", "true", "yes"}
 
 
 class CustomLogger(logging.Logger):
     """Custom logger to appease ty."""
 
-    def trace(self, message: typing.Any, *args: typing.Any, **kws: typing.Any) -> None:  # noqa: ANN401 Typing.any required for logging
+    def trace(self, message: typing.Any, *args: typing.Any, **kws: typing.Any) -> None:  # ruff:ignore[any-type] Typing.any required for logging
         """Create logger level for trace."""
         if self.isEnabledFor(TRACE_LEVEL_NUM):
             # Yes, logger takes its '*args' as 'args'.
@@ -68,7 +68,7 @@ def setup_logger_cli(
     in_logger: logging.Logger | None = None,
 ) -> None:
     """Setup the logger from verbosity count from CLI."""
-    if verbosity >= 2:  # noqa: PLR2004 Magic number makes sense
+    if verbosity >= 2:  # ruff:ignore[magic-value-comparison] Magic number makes sense
         log_level = TRACE_LEVEL_NUM
     elif verbosity == 1:
         log_level = logging.DEBUG

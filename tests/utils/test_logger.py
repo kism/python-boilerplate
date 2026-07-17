@@ -77,11 +77,11 @@ def test_handler_file_added(logger: CustomLogger, tmp_path: Path) -> None:
 
     # TEST: Two handlers when logging to file expected
     setup_logger(log_level=log_level, log_path=log_path, in_logger=logger)
-    assert len(logger.handlers) == 2  # noqa: PLR2004 A console and a file handler are expected
+    assert len(logger.handlers) == 2  # ruff:ignore[magic-value-comparison] A console and a file handler are expected
 
     # TEST: Two handlers when logging to file expected, another one shouldn't be created
     setup_logger(log_level=log_level, log_path=log_path, in_logger=logger)
-    assert len(logger.handlers) == 2  # noqa: PLR2004 A console and a file handler are expected
+    assert len(logger.handlers) == 2  # ruff:ignore[magic-value-comparison] A console and a file handler are expected
 
 
 def test_trace_log_message(logger: CustomLogger) -> None:
