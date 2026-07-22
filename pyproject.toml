@@ -8,7 +8,7 @@ requires-python = ">=3.14.0,<4"
 dependencies = ["rich>=15.0.0"]
 
 [project.optional-dependencies]
-type = ["ty>=0.0.59"]
+type = ["ty>=0.0.62"]
 
 lint = ["ruff>=0.15.21"]
 
@@ -24,7 +24,7 @@ test = [
 Repository = "https://github.com/kism/python-boilerplate"
 
 [build-system]
-requires = ["uv_build>=0.11.29,<0.12.0"]
+requires = ["uv_build>=0.11.31,<0.12.0"]
 build-backend = "uv_build"
 
 [tool.uv.build-backend]
