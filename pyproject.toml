@@ -8,13 +8,13 @@ requires-python = ">=3.14.0,<4"
 dependencies = ["rich>=15.0.0"]
 
 [project.optional-dependencies]
-type = ["ty>=0.0.65"]
+type = ["ty>=0.0.69"]
 
-lint = ["ruff>=0.16.1"]
+lint = ["ruff>=0.16.2"]
 
 test = [
     "pytest>=9.1.1",
-    "coverage>=7.15.2",
+    "coverage>=7.15.4",
     "pytest-mock",
     "pytest-random-order",
     "detect-test-pollution",
@@ -35,7 +35,6 @@ my-cool-app = "my_cool_app:__main__.main"
 
 [tool.ruff]
 cache-dir = "~/.cache/ruff"
-target-version = "py314"
 line-length = 120
 
 [tool.ruff.lint]
