@@ -25,8 +25,8 @@ def _get_version_str() -> str:
     if git_head_log.is_file():
         with git_head_log.open("r") as f:
             lines = f.readlines()
-            if lines:  # pragma: no cover # This doesn't get hit in CI
-                last_commit = lines[-1].strip().split(" ")[0][:7]  # Get the last commit hash, first 7 characters
+            if lines:
+                last_commit = lines[-1].strip().split(" ")[1][:7]  # Get the new commit hash, first 7 characters
 
     if git_head.is_file():
         with git_head.open("r") as f:
