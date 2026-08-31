@@ -27,9 +27,6 @@ Repository = "https://github.com/kism/python-boilerplate"
 requires = ["uv_build>=0.12.3,<0.13.0"]
 build-backend = "uv_build"
 
-[tool.uv.build-backend]
-module-root = ""
-
 [project.scripts]
 my-cool-app = "my_cool_app:__main__.main"
 
