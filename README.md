@@ -36,7 +36,7 @@ uv sync --all-extras # Omit --all-extras for prod
 ### Running the app
 
 ```bash
-python -m my_cool_app
+uv run my-cool-app
 ```
 
 ## Check/Test
