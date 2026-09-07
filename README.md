@@ -2,21 +2,15 @@
 
 ## Using this template
 
-Rename the app and repo references (replace `your_app` and `youruser/your-repo`):
+Run the rename script and answer the prompts (module name, dist name, repo):
 
 ```bash
-NEW_MODULE=your_app                 # python module name, snake_case
-NEW_DIST=your-app                   # package/dist name, kebab-case
-NEW_REPO=youruser/your-repo         # github <user>/<repo>
-
-git grep -lz -e my_cool_app -e my-cool-app -e kism/python-boilerplate | \
-  xargs -0 sed -i "s|my_cool_app|$NEW_MODULE|g; s|my-cool-app|$NEW_DIST|g; s|kism/python-boilerplate|$NEW_REPO|g"
-git mv src/my_cool_app "src/$NEW_MODULE"
-rm -f .github/workflows/dependabot_automerge.yml
-rm -rf .venv *.egg-info && uv sync --all-extras
-
-rm -rf .git && git init -q && git add -A && git commit -qm "Initial commit"
+./AAA_RENAME_TEMPLATE.sh
 ```
+
+It rewrites every `my_cool_app` / `my-cool-app` / `kism/python-boilerplate` reference,
+renames `src/my_cool_app`, drops template-only files, resyncs the venv, re-inits git
+with a fresh initial commit, and deletes itself (and this section) when done.
 
 Then delete this section.
 
